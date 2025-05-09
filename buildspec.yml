@@ -20,4 +20,6 @@ phases:
 artifacts:
   files:
     - '**/*'
-  encryptionDisabled: true
+  base-directory: build
+  discard-paths: no
+  encryption-disabled: true
