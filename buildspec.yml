@@ -13,7 +13,7 @@ phases:
     commands:
       - echo "Zipping static files..."
       - zip -r build.zip . -x "buildspec.yml"  # exclude the buildspec itself if needed
-      - echo "ZIP file created: build.zip"
+      - echo "ZIP file created:"
       - ls -l build.zip
 
   post_build:
