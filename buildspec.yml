@@ -11,7 +11,10 @@ phases:
 
   build:
     commands:
-      - echo "Building project... (In this case, no build is needed for static html)"
+      - echo "Zipping static files..."
+      - zip -r build.zip . -x "buildspec.yml"  # exclude the buildspec itself if needed
+      - echo "ZIP file created: build.zip"
+      - ls -l build.zip
 
   post_build:
     commands:
@@ -19,7 +22,7 @@ phases:
 
 artifacts:
   files:
-    - '**/*'
-  base-directory: build
+    - build.zip
+  base-directory: .
   discard-paths: no
   encryption-disabled: true
