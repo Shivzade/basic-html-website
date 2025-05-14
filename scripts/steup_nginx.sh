@@ -1,20 +1,26 @@
 #!/bin/bash
+set -e
 
-# Grant Execute permissions to this script
-chmod +x /home/ubuntu/scripts/setup_ngnix.sh
+# Install Nginx only if not already installed
+if ! dpkg -l | grep -qw nginx; then
+  echo "🔧 Installing NGINX..."
+  apt update -y
+  apt install -y nginx
+else
+  echo "✅ NGINX already installed"
+fi
 
-# Install Nginx
-yum update
-yum install -y nginx
-
-# Start Nginx and enable it to run on boot
+# Ensure NGINX is started and enabled
 systemctl start nginx
 systemctl enable nginx
 
-# Ensure Nginx is running
-if systemctl status nginx | grep "active (running)"; then
-    echo "Nginx is running"
+# Reload NGINX to apply changes
+systemctl reload nginx
+
+# Confirm NGINX is running
+if systemctl is-active --quiet nginx; then
+  echo "✅ NGINX is running"
 else
-    echo "Failed to start Nginx"
-    exit 1
+  echo "❌ NGINX failed to start"
+  exit 1
 fi
